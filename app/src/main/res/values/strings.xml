@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SDK Sample</string>
+    <string name="some_text">Some text</string>
+    <string name="some_more_text">Some more text</string>
+    <string name="second_group">this is the second group</string>
+    <string name="hello_world">Hello World!</string>
+    <string name="hello_world_again">Hello World again!</string>
+</resources>

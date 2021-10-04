@@ -1,0 +1,5 @@
+rootProject.name = "Lint Rule Examples"
+include ':app'
+include ':deprecated-library'
+include ':lint-checks'
+include ':another-module'
