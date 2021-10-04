@@ -1,4 +1,4 @@
-package au.com.woolworths.android.lint
+package dev.zarah.lint.checks
 
 import com.android.tools.lint.checks.infrastructure.LintDetectorTest
 import com.android.tools.lint.checks.infrastructure.ProjectDescription
@@ -6,7 +6,6 @@ import com.android.tools.lint.checks.infrastructure.TestFile
 import com.android.tools.lint.checks.infrastructure.TestMode
 import com.android.tools.lint.detector.api.Detector
 import com.android.tools.lint.detector.api.Issue
-import dev.zarah.lint.checks.DeprecatedColorInXmlDetector
 import org.junit.Test
 
 @Suppress("UnstableApiUsage")
@@ -33,7 +32,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
     }
 
     @Test
-    fun testDeprecatedColor() {
+    fun testDeprecatedColorInLayoutFile() {
         lint().files(
             DEPRECATED_COLOUR_FILE,
             VIEW_WITH_DEPRECATED_COLOUR
@@ -43,10 +42,10 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
             .expect(
                 """
                     res/layout/layout.xml:4: Error: Deprecated colours should not be used [DeprecatedColorInXml]
-                    android:background="@color/red_error" />
-                                        ~~~~~~~~~~~~~~~~
+                        android:background="@color/red_error" />
+                                            ~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -64,7 +63,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                         <solid android:color="@color/red_error" />
                                               ~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -79,11 +78,11 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
             .run()
             .expect(
                 """
-                    res/drawable/shape.xml:2: Error: Deprecated colours should not be used [DeprecatedColorInXml]
+                    res/color/text_selector.xml:2: Error: Deprecated colours should not be used [DeprecatedColorInXml]
                         <item android:color="@color/red_error" android:alpha="0.99" android:state_pressed="true" />
                                              ~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -98,7 +97,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                     <style name="TrolleyRewardsPreferenceText" parent="Body">
                         <item name="android:textColor">@color/product_item_desc_text_color</item>
                     </style>
-                """.trimIndent()
+                """
             ).indented()
         )
             .testModes(TestMode.PARTIAL)
@@ -109,12 +108,12 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                        <item name="android:textColor">@color/product_item_desc_text_color</item>
                                                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
     @Test
-    fun testDeprecatedSelector() {
+    fun testDeprecatedSelectorInLayoutFile() {
         lint().files(
             DEPRECATED_COLOUR_FILE,
             DEPRECATED_SELECTOR,
@@ -128,7 +127,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                        android:textColor="@color/some_selector_deprecated" />
                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -140,12 +139,12 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
             xml(
                 "res/color/some_selector.xml",
                 """
-                <selector xmlns:android="http://schemas.android.com/apk/res/android">
-                    <item android:color="@color/safe_colour" android:state_enabled="false" />
-                    <item android:color="@color/red_error" />
-                </selector>
-                """.trimIndent()
-            ).indented().indented()
+                    <selector xmlns:android="http://schemas.android.com/apk/res/android">
+                        <item android:color="@color/safe_colour" android:state_enabled="false" />
+                        <item android:color="@color/red_error" />
+                    </selector>
+                    """
+            ).indented()
         )
             .testModes(TestMode.PARTIAL)
             .run()
@@ -155,7 +154,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                        <item android:color="@color/red_error" />
                                             ~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -178,10 +177,10 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
             .expect(
                 """
                     res/layout/layout.xml:4: Error: Deprecated colours should not be used [DeprecatedColorInXml]
-                    android:background="@color/red_error" />
-                                        ~~~~~~~~~~~~~~~~
+                        android:background="@color/red_error" />
+                                            ~~~~~~~~~~~~~~~~
                     1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -214,7 +213,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                        android:textColor="@color/some_selector_deprecated" />
                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
                    1 errors, 0 warnings
-                """.trimIndent()
+                """
             )
     }
 
@@ -227,7 +226,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                     <color name="another_value">#d6163e</color>
                     <color name="and_another_value">#d6163e</color>
                 </resources>
-            """.trimIndent()
+            """
         ).indented()
 
         val DEPRECATED_COLOUR_FILE2: TestFile = xml(
@@ -236,7 +235,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                 <resources>
                     <color name="product_item_desc_text_color">#AC354148</color>
                 </resources>
-            """.trimIndent()
+            """
         ).indented()
 
         val DEPRECATED_SELECTOR: TestFile = xml(
@@ -247,7 +246,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                     <item android:color="@color/unavailable_text_colour" android:state_enabled="false" />
                     <item android:color="@color/color_accent" />
                 </selector>
-            """.trimIndent()
+            """
         ).indented()
 
         val VIEW_WITH_VALID_COLOUR: TestFile = xml(
@@ -257,27 +256,27 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@color/rewards_color_primary" />
-            """.trimIndent()
+            """
         ).indented()
 
         val VIEW_WITH_ANDROID_COLOUR: TestFile = xml(
             "res/layout/layout.xml",
             """
                 <View xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white" />
-            """.trimIndent()
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white" />
+            """
         ).indented()
 
         val VIEW_WITH_DEPRECATED_COLOUR: TestFile = xml(
             "res/layout/layout.xml",
             """
                 <View xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/red_error" />
-            """.trimIndent()
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/red_error" />
+            """
         ).indented()
 
         val SHAPE_WITH_DEPRECATED_COLOUR: TestFile = xml(
@@ -287,7 +286,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                         android:shape="oval">
                     <solid android:color="@color/red_error" />
                 </shape>
-            """.trimIndent()
+            """
         ).indented()
 
         val SELECTOR_WITH_DEPRECATED_COLOUR: TestFile = xml(
@@ -296,7 +295,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                 <selector xmlns:android="http://schemas.android.com/apk/res/android">
                     <item android:color="@color/red_error" android:alpha="0.99" android:state_pressed="true" />
                 </selector>
-            """.trimIndent()
+            """
         ).indented()
 
         val VIEW_WITH_DEPRECATED_SELECTOR: TestFile = xml(
@@ -306,7 +305,7 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/some_selector_deprecated" />
-                """.trimIndent()
+                """
         ).indented()
     }
 }

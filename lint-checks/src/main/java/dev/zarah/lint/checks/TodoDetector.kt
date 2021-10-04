@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020 Woolworths. All rights reserved.
- */
-
 package dev.zarah.lint.checks
 
 import com.android.tools.lint.client.api.UElementHandler

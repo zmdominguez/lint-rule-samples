@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2020 Woolworths. All rights reserved.
- */
-
 package dev.zarah.lint.checks
 
 import com.android.SdkConstants
@@ -40,8 +36,6 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
     private var colourUsagesLintMap: LintMap = LintMap()
 
     override fun appliesTo(folderType: ResourceFolderType): Boolean {
-        // Return true if we want to analyse resource files in the specified resource
-        // folder type.
         return folderType in listOf(
             ResourceFolderType.LAYOUT,
             ResourceFolderType.DRAWABLE,
@@ -51,10 +45,7 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
     }
 
     override fun getApplicableAttributes(): Collection<String>? {
-        // Return the set of attribute names we want to analyze. The `visitAttribute` method
-        // below will be called each time lint sees one of these attributes in a
-        // layout XML resource file. In this case, we want to analyze every attribute
-        // in every layout XML resource file.
+        // Look at every attribute in a file
         return XmlScannerConstants.ALL
     }
 
@@ -185,8 +176,8 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
      *
      * For example, a deprecated colour can be used in a theme or a style:
      * ```
-     * <style name="TrolleyRewardsPreferenceText" parent="Body">
-     *      <item name="android:textColor">@color/text_color_4</item>
+     * <style name="Brand.SponsoredSpan">
+     *  <item name="textColor">@color/a_deprecated_color</item>
      * </style>
      * ```
      */
@@ -196,7 +187,7 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
         val tagName = element.tagName
         if (tagName != SdkConstants.TAG_ITEM) return
 
-        // Check if the value of this element is a deprecated colour
+        // Save the value of this element
         if (element.firstChild == null) return
 
         val fileContents = context.getContents()

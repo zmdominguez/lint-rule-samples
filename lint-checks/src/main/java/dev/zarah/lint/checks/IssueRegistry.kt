@@ -15,6 +15,7 @@ class IssueRegistry : IssueRegistry() {
     override val api = CURRENT_API
 
     override val vendor: Vendor = Vendor(
-        vendorName = "Woolworths Group",
+        vendorName = "Zarah Dominguez",
+        feedbackUrl = "https://github.com/zmdominguez/lint-rule-samples",
     )
 }
