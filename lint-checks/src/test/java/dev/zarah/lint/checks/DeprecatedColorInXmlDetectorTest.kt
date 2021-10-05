@@ -217,6 +217,37 @@ class DeprecatedColorInXmlDetectorTest : LintDetectorTest() {
             )
     }
 
+    @Test
+    fun testDeprecatedColourInLibraryAndApp() {
+        val deprecatedModule = ProjectDescription()
+            .name("deprecated-library")
+            .type(ProjectDescription.Type.LIBRARY)
+            .files(DEPRECATED_COLOUR_FILE,
+                DEPRECATED_SELECTOR,
+                VIEW_WITH_DEPRECATED_COLOUR)
+
+        val appModule = ProjectDescription()
+            .name("app")
+            .files(VIEW_WITH_DEPRECATED_SELECTOR)
+            .dependsOn(deprecatedModule)
+
+        lint()
+            .projects(deprecatedModule, appModule)
+            .testModes(TestMode.PARTIAL)
+            .run()
+            .expect(
+                """
+                    res/layout/layout.xml:4: Error: Deprecated colours should not be used [DeprecatedColorInXml]
+                        android:textColor="@color/some_selector_deprecated" />
+                                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    ../deprecated-library/res/layout/layout.xml:4: Error: Deprecated colours should not be used [DeprecatedColorInXml]
+                        android:background="@color/red_error" />
+                                            ~~~~~~~~~~~~~~~~
+                    2 errors, 0 warnings
+                """
+            )
+    }
+
     companion object {
         val DEPRECATED_COLOUR_FILE: TestFile = xml(
             "res/values/colors_deprecated.xml",
