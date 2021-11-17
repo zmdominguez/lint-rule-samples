@@ -2,9 +2,8 @@
 buildscript {
     ext {
         kotlinVersion = '1.5.30'
-        // Current lint target: 7.0.2
-        gradlePluginVersion = '7.0.2'
-        lintVersion = '30.0.2'
+        gradlePluginVersion = '7.0.3'
+        lintVersion = '30.0.3'
 
         // Upcoming lint target: Bumble Bee / AGP 7.1
 //        gradlePluginVersion = '7.1.0-alpha12'

@@ -9,6 +9,7 @@ import com.android.tools.lint.detector.api.Issue
 class IssueRegistry : IssueRegistry() {
     override val issues: List<Issue> = listOf(
         DeprecatedColorInXmlDetector.ISSUE,
+        ResourceNameFormatDetector.ISSUE,
         TodoDetector.ISSUE,
     )
 
