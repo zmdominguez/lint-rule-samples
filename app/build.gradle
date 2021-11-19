@@ -38,7 +38,6 @@ android {
         checkDependencies true
         textReport true
         baseline file("lint-baseline.xml")
-//        disable 'UnusedResources'
     }
 }
 
