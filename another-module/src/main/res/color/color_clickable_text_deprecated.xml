@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-  ~ Copyright (c) 2020 Woolworths. All rights reserved.
-  -->
-
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Technically we do not want to change the text colour but Android refuses to cooperate -->
+    <!-- Without setting the alpha state changes are ignored -->
     <item android:color="?colorPrimary" android:alpha="0.99" android:state_pressed="true" />
     <item android:color="?colorPrimary" android:alpha="0.99" android:state_focused="true" />
     <item android:color="?colorPrimary" android:alpha="?android:disabledAlpha" android:state_enabled="false" />

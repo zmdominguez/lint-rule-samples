@@ -2,6 +2,8 @@ package dev.zarah.sdksample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import androidx.databinding.BindingAdapter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -10,4 +12,9 @@ class MainActivity : AppCompatActivity() {
 
         // TODO add stuff
     }
+}
+
+@BindingAdapter("visible")
+fun setVisible(view: View, isVisible: Boolean) {
+    view.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
