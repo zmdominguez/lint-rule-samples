@@ -15,7 +15,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testNoBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <View xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,7 +32,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testValidBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -54,7 +54,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testValidTwoWayBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -76,7 +76,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testNoSpacesBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -111,7 +111,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testNoSpacesTwoWayBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -146,7 +146,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testNoTrailingSpaceBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -181,7 +181,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testNoLeadingSpaceBindingExpression() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                 <layout xmlns:android="http://schemas.android.com/apk/res/android">
@@ -216,7 +216,7 @@ class DatabindingExpressionFormatDetectorTest : LintDetectorTest() {
     @Test
     fun testExpressionWithEscapeCharacters() {
         lint().files(
-            TestFiles.xml(
+            xml(
                 "res/layout/layout.xml",
                 """
                     <?xml version="1.0" encoding="utf-8"?>
