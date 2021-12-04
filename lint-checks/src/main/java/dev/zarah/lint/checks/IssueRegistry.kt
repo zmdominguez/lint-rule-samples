@@ -8,6 +8,7 @@ import com.android.tools.lint.detector.api.Issue
 @Suppress("UnstableApiUsage")
 class IssueRegistry : IssueRegistry() {
     override val issues: List<Issue> = listOf(
+        DatabindingExpressionFormatDetector.ISSUE,
         DeprecatedColorInXmlDetector.ISSUE,
         ResourceNameFormatDetector.ISSUE,
         TodoDetector.ISSUE,
