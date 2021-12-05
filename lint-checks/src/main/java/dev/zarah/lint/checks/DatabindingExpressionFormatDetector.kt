@@ -65,7 +65,7 @@ class DatabindingExpressionFormatDetector : LayoutDetector() {
         val rawExpressionValue = rawNodeText.substring(expressionStart, expressionEnd)
 
         // Get the Location value for the actual expression within the file (end index is exclusive, so add 1)
-        // We cannot use `attribute.getValueLocation()` since there may be escaped characters
+        // We cannot use `context.parser.getValueLocation()` since there may be escaped characters
         val attributeValueLocation = Location.create(context.file, rawText, nodeStart + attributeValueStart, nodeStart + expressionEnd + 1)
 
         val replacementText = "$prefixExpression ${rawExpressionValue.trim()} }"
