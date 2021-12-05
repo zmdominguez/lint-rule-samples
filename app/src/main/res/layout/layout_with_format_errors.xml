@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="hasValue"
+            type="Boolean" />
+
+        <variable
+            name="isFeatureOn"
+            type="Boolean" />
+
+        <variable
+            name="label"
+            type="String" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/some_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:visible="@{hasValue &amp;&amp; isFeatureOn}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/some_view"
+            app:layout_constraintStart_toStartOf="parent"
+            android:text="@{label}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
