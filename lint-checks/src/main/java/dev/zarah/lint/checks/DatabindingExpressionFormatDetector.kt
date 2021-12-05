@@ -45,10 +45,10 @@ class DatabindingExpressionFormatDetector : LayoutDetector() {
         // This is the contents of the whole XML file
         val rawText = context.getContents() ?: return Pair(null, null)
 
-        // Find the contents of the node, including the attribute name (i.e. `android:background`)
+        // Find the full contents of the node, including the attribute name (i.e. `android:background`)
         val nodeStart = context.parser.getNodeStartOffset(context, attribute)
         if (nodeStart == -1) return Pair(null, null)
-        val nodeEnd = rawText.length.coerceAtMost(context.parser.getNodeEndOffset(context, attribute))
+        val nodeEnd = context.parser.getNodeEndOffset(context, attribute)
         val rawNodeText = rawText.substring(nodeStart, nodeEnd)
 
         // Find the databinding prefix used
@@ -64,9 +64,9 @@ class DatabindingExpressionFormatDetector : LayoutDetector() {
         val expressionEnd = rawNodeText.lastIndexOf("}")
         val rawExpressionValue = rawNodeText.substring(expressionStart, expressionEnd)
 
-        // Get the Location value for the actual expression within the file (end index is exclusive, so add 1)
         // We cannot use `context.parser.getValueLocation()` since there may be escaped characters
-        val attributeValueLocation = Location.create(context.file, rawText, nodeStart + attributeValueStart, nodeStart + expressionEnd + 1)
+        // Get the Location value for the actual expression within the file (not including the quotation marks)
+        val attributeValueLocation = Location.create(context.file, rawText, nodeStart + attributeValueStart, nodeEnd - 1)
 
         val replacementText = "$prefixExpression ${rawExpressionValue.trim()} }"
         val quickfix = fix()
