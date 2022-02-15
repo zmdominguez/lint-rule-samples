@@ -36,6 +36,8 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
     private var colourUsagesLintMap: LintMap = LintMap()
 
     override fun appliesTo(folderType: ResourceFolderType): Boolean {
+        // Return true if we want to analyse resource files in the specified resource
+        // folder type.
         return folderType in listOf(
             ResourceFolderType.LAYOUT,
             ResourceFolderType.DRAWABLE,
@@ -45,7 +47,10 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
     }
 
     override fun getApplicableAttributes(): Collection<String>? {
-        // Look at every attribute in a file
+        // Return the set of attribute names we want to analyze. The `visitAttribute` method
+        // below will be called each time lint sees one of these attributes in a
+        // layout XML resource file. In this case, we want to analyze every attribute
+        // in every layout XML resource file.
         return XmlScannerConstants.ALL
     }
 
@@ -163,6 +168,10 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
      * Look for those usages here.
      */
     override fun visitAttribute(context: XmlContext, attribute: Attr) {
+        // The issue is suppressed for this attribute, skip it
+        val isIssueSuppressed = context.driver.isSuppressed(context, ISSUE, attribute)
+        if (isIssueSuppressed) return
+
         // Save the value and location of the XML attribute.
         saveColourUsage(
             attribute.nodeValue,
@@ -182,12 +191,11 @@ class DeprecatedColorInXmlDetector : ResourceXmlDetector() {
      * ```
      */
     override fun visitElement(context: XmlContext, element: Element) {
-        // Colors can also be in styles as an `<item>` value
-        // Find those cases here
-        val tagName = element.tagName
-        if (tagName != SdkConstants.TAG_ITEM) return
+        // The issue is suppressed for this element, skip it
+        val isIssueSuppressed = context.driver.isSuppressed(context, ISSUE, element)
+        if (isIssueSuppressed) return
 
-        // Save the value of this element
+        // Check if the value of this element is a deprecated colour
         if (element.firstChild == null) return
 
         val fileContents = context.getContents()
