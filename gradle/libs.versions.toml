@@ -1,0 +1,30 @@
+[versions]
+agp = "8.5.0"
+espresso = "3.5.1"
+kotlin = "2.0.0"
+lint = "31.5.0"
+junit = "4.13.2"
+junit-ext = "1.1.5"
+
+[libraries]
+androidx-appCompat = { module = "androidx.appcompat:appcompat", version = "1.6.1" }
+androidx-core = { module = "androidx.core:core-ktx", version = "1.10.1" }
+androidx-material = { module = "com.google.android.material:material", version = "1.9.0" }
+constraintLayout = { module = "androidx.constraintlayout:constraintlayout", version = "2.1.4" }
+kotlin-stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk7", version.ref = "kotlin" }
+lint-api = { module = "com.android.tools.lint:lint-api", version.ref = "lint" }
+lint-checks = { module = "com.android.tools.lint:lint-checks", version.ref = "lint" }
+lint-tests = { module = "com.android.tools.lint:lint-tests", version.ref = "lint" }
+lint-tools = { module = "com.android.tools.lint:lint", version.ref = "lint" }
+junit = { module = "junit:junit", version.ref = "junit" }
+junit-ext = { module =  "androidx.test.ext:junit", version.ref = "junit-ext" }
+espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }

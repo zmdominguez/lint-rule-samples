@@ -1,7 +1,7 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.kapt")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
 }
 
 android {
@@ -29,12 +29,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 
     namespace = "dev.zarah.sdksample"
@@ -50,13 +46,13 @@ dependencies {
 
     implementation(project(":deprecated-library"))
 
-    implementation(Config.AndroidX.core)
-    implementation(Config.AndroidX.appCompat)
-    implementation(Config.AndroidX.material)
-    implementation(Config.AndroidX.constraintLayout)
-    testImplementation(Config.Tests.junit)
-    androidTestImplementation(Config.Tests.junitExt)
-    androidTestImplementation(Config.Tests.espressoCore)
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.material)
+    implementation(libs.constraintLayout)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.junit.ext)
+    androidTestImplementation(libs.espresso.core)
 
     lintChecks(project(":lint-checks"))
 }
