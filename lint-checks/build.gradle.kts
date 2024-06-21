@@ -1,7 +1,6 @@
 plugins {
-    id("java-library")
-    id("kotlin")
-    id("com.android.lint")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.android.lint)
 }
 
 lint {
@@ -12,12 +11,12 @@ lint {
 
 dependencies {
 
-    compileOnly(Config.Lint.api)
+    compileOnly(libs.lint.api)
 
-    compileOnly(Config.Lint.checks)
-    compileOnly(Config.Kotlin.stdLib)
+    compileOnly(libs.lint.checks)
+    compileOnly(libs.kotlin.stdlib)
 
-    testImplementation(Config.Tests.junit)
-    testImplementation(Config.Lint.tools)
-    testImplementation(Config.Lint.tests)
+    testImplementation(libs.junit)
+    testImplementation(libs.lint.tools)
+    testImplementation(libs.lint.tests)
 }
