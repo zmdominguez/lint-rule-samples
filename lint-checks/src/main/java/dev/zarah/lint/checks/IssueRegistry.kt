@@ -5,14 +5,13 @@ import com.android.tools.lint.client.api.Vendor
 import com.android.tools.lint.detector.api.CURRENT_API
 import com.android.tools.lint.detector.api.Issue
 
-@Suppress("UnstableApiUsage")
 class IssueRegistry : IssueRegistry() {
-    override val issues: List<Issue> = listOf(
-        DatabindingExpressionFormatDetector.ISSUE,
-        DeprecatedColorInXmlDetector.ISSUE,
-        ResourceNameFormatDetector.ISSUE,
-        TodoDetector.ISSUE,
-    )
+    override val issues: List<Issue> = buildList {
+        add(DatabindingExpressionFormatDetector.ISSUE)
+        add(DeprecatedColorInXmlDetector.ISSUE)
+        add(ResourceNameFormatDetector.ISSUE)
+        addAll(TodoDetector.ISSUES)
+    }
 
     override val api = CURRENT_API
 
