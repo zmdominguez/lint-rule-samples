@@ -425,6 +425,38 @@ class TodoDetectorTest : LintDetectorTest() {
             )
     }
 
+    @Test
+    fun testMissingDateInTest() {
+        lint().files(
+            kotlin(
+                "test/test/pkg/TestClass.kt",
+                """
+                package test.pkg
+                class TestClass {
+                    // TODO-Zarah Some comments
+                }
+            """
+            ).indented()
+        )
+            .run()
+            .expect(
+                """
+                test/test/pkg/TestClass.kt:3: Error: Missing date [MissingTodoDate]
+                    // TODO-Zarah Some comments
+                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                1 errors, 0 warnings
+                """.trimIndent()
+            )
+            .expectFixDiffs(
+                """
+                    Fix for test/test/pkg/TestClass.kt line 3: Add date:
+                    @@ -3 +3
+                    -     // TODO-Zarah Some comments
+                    +     // TODO-Zarah ($dateToday): Some comments
+                """.trimIndent()
+            )
+    }
+
     companion object {
         private val dateToday = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
         private val assignee = System.getProperty("user.name")
