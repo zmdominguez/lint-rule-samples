@@ -20,6 +20,7 @@ import org.jetbrains.uast.UFile
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
+import java.util.EnumSet
 
 class TodoDetector : Detector(), SourceCodeScanner {
 
@@ -293,7 +294,7 @@ class TodoDetector : Detector(), SourceCodeScanner {
 
         private val IMPLEMENTATION = Implementation(
             TodoDetector::class.java,
-            Scope.JAVA_FILE_SCOPE
+            EnumSet.of(Scope.JAVA_FILE, Scope.TEST_SOURCES)
         )
 
         private const val REQUIRED_FORMAT = "All TODOs must follow the format `TODO-Assignee (DATE_TODAY): Additional comments`"
